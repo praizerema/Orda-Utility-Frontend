@@ -1,9 +1,10 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { LoginFormData, RegisterFormData } from "../react-app-env";
+import { RootState } from "./store";
 
 interface User {
-  email: string;
+  access_token: string;
 }
 
 interface AuthState {
@@ -63,12 +64,13 @@ const authSlice = createSlice({
       })
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = "succeeded";
-        state.user = action.payload.user;
+        state.user = action.payload.data;
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = "failed";
         state.error = action.error.message || "Login failed";
       })
+
       // Register user
       .addCase(registerUser.pending, (state) => {
         state.loading = "pending";
@@ -76,7 +78,7 @@ const authSlice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, action) => {
         state.loading = "succeeded";
-        state.user = action.payload.user;
+        state.user = action.payload.data;
       })
       .addCase(registerUser.rejected, (state, action) => {
         state.loading = "failed";
@@ -85,7 +87,7 @@ const authSlice = createSlice({
   },
 });
 
-export const selectUser = (state: { auth: AuthState }) => state.auth.user;
+export const selectUser = (state: RootState) => state.auth.user;
 export const selectLoading = (state: { auth: AuthState }) => state.auth.loading;
 export const selectError = (state: { auth: AuthState }) => state.auth.error;
 

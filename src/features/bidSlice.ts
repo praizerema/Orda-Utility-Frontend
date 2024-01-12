@@ -3,8 +3,8 @@ import axios from 'axios';
 
 interface Bid {
   quantity: number;
-  startTime: string;
-  closeTime: string;
+  start_time: string;
+  close_time: string;
   price: number;
 }
 
@@ -17,6 +17,15 @@ export const fetchBids: AsyncThunk<Bid[], void, {}> = createAsyncThunk('bid/fetc
   return response.data.bids;
 });
 
+export const createBid: AsyncThunk<Bid, Bid, {}> = createAsyncThunk('bid/createBid', async (newBid: Bid) => {
+    console.log('one is working');
+    
+const response = await axios.post('http://localhost:4000/auth/bids/create', newBid);
+    console.log('sdkjdskjsd');
+    
+    return response.data; 
+  });
+  
 const initialState: BidState = {
   bids: [],
 };
