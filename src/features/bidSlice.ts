@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction, createAsyncThunk, AsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import api from '../utils/api';
 
 interface Bid {
   quantity: number;
@@ -13,13 +14,13 @@ interface BidState {
 }
 
 export const fetchBids: AsyncThunk<Bid[], void, {}> = createAsyncThunk('bid/fetchBids', async () => {
-  const response = await axios.get('/bids');
+  const response = await api.get('auth/bids');
   return response.data.bids;
 });
 
 export const createBid: AsyncThunk<Bid, Bid, {}> = createAsyncThunk('bid/createBid', async (newBid: Bid) => {
     
-const response = await axios.post('http://localhost:4000/auth/bids/create', newBid);
+const response = await api.post('auth/bids/create', newBid);
     
     return response.data; 
   });

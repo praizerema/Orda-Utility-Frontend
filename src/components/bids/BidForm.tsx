@@ -4,7 +4,6 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { placeBidSchema } from "./BidSchema";
 import { Button } from "../button/Button";
 import { createBid } from "../../features/bidSlice";
-// import { Bid } from "../../react-app-env";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../features/store";
 
@@ -33,7 +32,7 @@ export function BidForm() {
 
       <Input
         label="Start date"
-        type="date"
+        type="datetime-local"
         {...register("start_time")}
         inputClass="w-full"
         errorMessage={errors?.start_time?.message}
@@ -41,7 +40,7 @@ export function BidForm() {
 
       <Input
         label="Close date"
-        type="date"
+        type="datetime-local"
         {...register("close_time")}
         inputClass="w-full"
         errorMessage={errors?.close_time?.message}
@@ -53,10 +52,13 @@ export function BidForm() {
         inputClass="w-full"
         errorMessage={errors?.price?.message}
       />
-       <Button
+      <div className="text-right">
+          <Button
             text="Place Bid"
-            className="bg-green-800 text-white px-5 py-2 rounded hover:bg-green-300"
+            className="bg-green-800 text-white px-5 py-2 rounded hover:bg-green-300 mt-5"
           />
+      </div>
+     
     </form>
   );
 }

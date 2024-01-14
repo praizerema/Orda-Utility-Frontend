@@ -2,6 +2,8 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { LoginFormData, RegisterFormData } from "../react-app-env";
 import { RootState } from "./store";
+import Api from "../utils/api";
+import api from "../utils/api";
 
 interface User {
   access_token: string;
@@ -24,8 +26,7 @@ export const loginUser = createAsyncThunk(
   "auth/loginUser",
   async (payload: LoginFormData) => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/auth/signin",
+      const response = await Api.post("auth/signin",
         payload
       );
       return response.data;
@@ -40,8 +41,8 @@ export const registerUser = createAsyncThunk(
   "auth/registerUser",
   async (payload: RegisterFormData) => {
     try {
-      const response = await axios.post(
-        "http://localhost:4000/auth/signup",
+      const response = await api.post(
+        "auth/signup",
         payload
       );
       return response.data;
@@ -65,6 +66,9 @@ const authSlice = createSlice({
       .addCase(loginUser.fulfilled, (state, action) => {
         state.loading = "succeeded";
         state.user = action.payload.data;
+        localStorage.setItem('access_token', action.payload.data.access_token)
+        localStorage.setItem('user_id', action.payload.data.user._id)
+
       })
       .addCase(loginUser.rejected, (state, action) => {
         state.loading = "failed";
