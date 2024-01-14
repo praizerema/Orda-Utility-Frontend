@@ -18,10 +18,8 @@ export const fetchBids: AsyncThunk<Bid[], void, {}> = createAsyncThunk('bid/fetc
 });
 
 export const createBid: AsyncThunk<Bid, Bid, {}> = createAsyncThunk('bid/createBid', async (newBid: Bid) => {
-    console.log('one is working');
     
 const response = await axios.post('http://localhost:4000/auth/bids/create', newBid);
-    console.log('sdkjdskjsd');
     
     return response.data; 
   });

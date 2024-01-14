@@ -16,7 +16,7 @@ export const LoginForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(loginSchema) });
-
+  
   const onSubmitHandler = (data: LoginFormData) => {
     onSubmit(data);
   };
@@ -29,12 +29,14 @@ export const LoginForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
           type="email"
           {...register("email")}
           inputClass="w-full"
+          errorMessage={errors?.email?.message}
         />
         <Input
           label="Password"
           type="password"
           {...register("password")}
           inputClass="w-full"
+          errorMessage={errors?.password?.message}
         />
         <div className="text-right">
           <Button

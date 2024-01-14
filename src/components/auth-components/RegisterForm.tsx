@@ -30,12 +30,14 @@ export const RegisterForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
             type="text"
             {...register("first_name")}
             inputClass="w-full"
+            errorMessage={errors?.first_name?.message}
           />
           <Input
             label="Last Name"
             type="text"
             {...register("last_name")}
             inputClass="w-full"
+            errorMessage={errors?.last_name?.message}
           />
         </div>
         <Input
@@ -43,12 +45,14 @@ export const RegisterForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
           type="email"
           {...register("email")}
           inputClass="w-full"
+          errorMessage={errors?.email?.message}
         />
         <Input
           label="Password"
           type="password"
           {...register("password")}
           inputClass="w-full"
+          errorMessage={errors?.password?.message}
         />
 
         <Input
@@ -56,6 +60,7 @@ export const RegisterForm: React.FC<AuthFormProps> = ({ onSubmit }) => {
           type="password"
           {...register("confirm_password")}
           inputClass="w-full"
+          errorMessage={errors?.confirm_password?.message}
         />
         <div className="text-right">
           <Button

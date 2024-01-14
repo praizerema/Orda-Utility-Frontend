@@ -4,7 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { placeBidSchema } from "./BidSchema";
 import { Button } from "../button/Button";
 import { createBid } from "../../features/bidSlice";
-import { Bid } from "../../react-app-env";
+// import { Bid } from "../../react-app-env";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../../features/store";
 
@@ -17,7 +17,6 @@ export function BidForm() {
       const dispatch: AppDispatch = useDispatch();
       
   const onSubmitHandler = async (data:any) => {
-    console.log(data);
     await dispatch(createBid({ ...data }));
 
   };
@@ -29,6 +28,7 @@ export function BidForm() {
         type="number"
         {...register("quantity")}
         inputClass="w-full"
+        errorMessage={errors?.quantity?.message}
       />
 
       <Input
@@ -36,6 +36,7 @@ export function BidForm() {
         type="date"
         {...register("start_time")}
         inputClass="w-full"
+        errorMessage={errors?.start_time?.message}
       />
 
       <Input
@@ -43,12 +44,14 @@ export function BidForm() {
         type="date"
         {...register("close_time")}
         inputClass="w-full"
+        errorMessage={errors?.close_time?.message}
       />
       <Input
         label="Price"
         type="number"
         {...register("price")}
         inputClass="w-full"
+        errorMessage={errors?.price?.message}
       />
        <Button
             text="Place Bid"
